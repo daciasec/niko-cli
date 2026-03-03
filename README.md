@@ -1,191 +1,132 @@
 # @daciasec/niko-cli
 
-A developer ops toolkit that makes your workflow smoother. Built by DaciaSec.
+> Your developer ops companion — git commits, shell management, and automation made simple.
 
-## Installation
+[![npm version](https://badge.fury.io/js/@daciasec%2Fniko-cli.svg)](https://www.npmjs.com/package/@daciasec/niko-cli)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+
+## ✨ Features
+
+- 🧠 **AI-Powered Commits** — Smart commit message suggestions based on your changes
+- 🐚 **Shell Management** — Auto-detect bash/zsh, manage aliases, env vars
+- 🔑 **API Key Management** — Securely configure OpenAI, Claude, Moonshot, Gemini, Groq
+- 📁 **Workspaces** — Quick directory bookmarks for rapid navigation
+- 🌐 **Network Tools** — Port checker, IP info, process killer
+- 🩺 **System Doctor** — Health checks for your dev environment
+
+## 🚀 Installation
 
 ```bash
-# Install globally
 npm install -g @daciasec/niko-cli
-
-# Or use with npx
-npx @daciasec/niko-cli
 ```
 
-## First Time Setup
+## 🎯 Quick Start
 
-When you run `niko` for the first time, you'll see a welcome banner and interactive setup wizard:
+Run `niko` for the first time to complete interactive setup:
 
 ```bash
-$ niko
-
-╔═══════════════════════════════════════════════════╗
-║                                                   ║
-║   ███╗   ██╗██╗██╗  ██╗ ██████╗     ██████╗██╗     ║
-║   ████╗  ██║██║██║ ██╔╝██╔═══██╗   ██╔════╝██║     ║
-║   ██╔██╗ ██║██║█████╔╝ ██║   ██║   ██║     ██║     ║
-║   ██║╚██╗██║██║██╔═██╗ ██║   ██║   ██║     ██║     ║
-║   ██║ ╚████║██║██║  ██╗╚██████╔╝   ╚██████╗███████╗║
-║   ╚═╝  ╚═══╝╚═╝╚═╝  ╚═╝ ╚═════╝     ╚═════╝╚══════╝║
-║                                                   ║
-║         Developer Ops Toolkit v0.1.0              ║
-║              by DaciaSec                          ║
-║                                                   ║
-╚═══════════════════════════════════════════════════╝
-
-👋 Welcome to Niko CLI!
-
-Let's get you set up in just a few questions...
-
-? Which shell do you use? (Use arrow keys)
-❯ Bash (detected)
-  Zsh (detected)
-
-? Preferred code editor? (Use arrow keys)
-❯ VS Code
-  Vim
-  Nano
-  Other (specify)
-
-🤖 AI API Keys (Optional)
-Configure API keys for AI-powered features. You can skip this and add later.
-
-? Would you like to configure AI API keys now? (Y/n)
-
-? Configure OpenAI (ChatGPT)? (y/N)
-? Configure Anthropic (Claude)? (y/N)
-? Configure Moonshot AI? (y/N)
-
-📝 Git Commit Configuration (Optional)
-Customize how Niko generates commit messages.
-
-? Would you like to configure git commit settings now? (Y/n)
-
-? Commit message style: (Use arrow keys)
-❯ Conventional Commits (feat:, fix:, docs:, etc.)
-  Angular Style (build:, ci:, docs:, etc.)
-  Custom (define your own types)
-
-? Maximum commit message length: (72)
-
-? Require scope in commit messages? (y/N)
-
-✅ Setup complete!
-
-Your configuration:
-  Shell: zsh
-  Editor: code
-  AI Keys: 2 configured
-  Git Style: conventional
-
-Quick start:
-  niko commit     → Make a smart git commit
-  niko bashrc     → Edit your shell config
-  niko doctor     → Check system health
-  niko --help     → See all commands
-
-? Run a quick system health check now? (Y/n)
+niko
 ```
 
-## Commands
+This will guide you through:
+1. Shell selection (bash/zsh)
+2. Preferred editor
+3. AI API keys (optional, skippable)
+4. Git commit style preferences (optional, skippable)
 
-### Git (with AI analysis & customizable style)
+## 📖 Usage
+
+### Git Commands
 
 ```bash
-niko commit              # Smart commit - analyzes changes & suggests message
-niko commit -m "message" # Quick commit with your message
-niko commit -a           # Stage all and commit
-niko commit --no-ai      # Skip AI analysis, manual mode
-niko undo                # Safely undo last commit
+# Smart commit with AI analysis
+niko commit
+
+# Quick commit with specific message
+niko commit -t feat -m "add user authentication"
+
+# Stage all and commit
+niko commit -a
+
+# Undo last commit (preserves changes)
+niko undo
+
+# Hard undo (discards changes)
+niko undo --hard
 ```
 
-The AI analysis looks at your staged changes and suggests:
-- Commit type (feat, fix, docs, etc.) based on your configured style
-- Commit message based on changed files
-- Enforces max character limits
-
-### Shell Config (auto-detects bash/zsh)
+### Shell Management
 
 ```bash
-niko bashrc              # Open shell config (auto-detects bash/zsh)
-niko source              # Source config to apply changes
-niko alias               # List all aliases
-niko alias deploy "npm run build && npm run deploy"  # Add alias
-niko env                 # List environment variables
-niko env EDITOR vim      # Set environment variable
+# Open shell config in editor (auto-detects bash/zsh)
+niko bashrc
+
+# Print config to stdout
+niko bashrc --cat
+
+# Apply shell changes
+niko source
+
+# Manage aliases
+niko alias deploy "npm run build && npm run deploy"
+niko alias --list
+niko alias --remove deploy
+
+# Manage environment variables
+niko env EDITOR vim
+niko env --list
+niko env --path
 ```
 
-### AI Integration
+### Workspace Bookmarks
 
 ```bash
-niko config --get apiKeys     # Show configured API keys
+# Add current directory as workspace
+niko workspace --add frontend
+
+# List all workspaces
+niko workspace --list
+
+# Show navigation command
+niko workspace frontend
+# Output: cd /path/to/frontend
 ```
 
-API keys are stored as environment variables in your shell config:
-- `OPENAI_API_KEY`
-- `ANTHROPIC_API_KEY`
-- `MOONSHOT_API_KEY`
-- `GEMINI_API_KEY`
-- `GROQ_API_KEY`
-
-### Utilities
+### Network & Ports
 
 ```bash
-niko ip                  # Show local/public IP
-niko ports               # Show common dev ports status
-niko kill-port 3000      # Kill process on port 3000
-niko doctor              # System health check
-niko workspace           # Quick directory bookmarks
+# Check all common dev ports
+niko ports
+
+# Check specific port
+niko ports 3000
+
+# Kill process on port
+niko kill-port 3000
+
+# Force kill
+niko kill-port 3000 --force
+
+# Show network info
+niko ip
 ```
 
-### Config
+### System Health
 
 ```bash
-niko config --list       # Show config
-niko config --get shell  # Get specific value
-niko config --set editor vim  # Set value
-niko onboarding          # Run setup wizard again
+# Run system health check
+niko doctor
+
+# View configuration
+niko config --list
+
+# Re-run setup wizard
+niko onboarding
 ```
 
-## Smart Features
+## ⚙️ Configuration
 
-### 🔮 AI Commit Analysis
-Analyzes your staged changes and suggests the perfect commit message:
-- Detects commit type based on your configured style (conventional/angular/custom)
-- Generates message from file names
-- Enforces max character limits
-- Shows file preview before committing
-
-### 🐚 Auto Shell Detection
-Automatically detects and remembers whether you use bash or zsh:
-- No need to specify every time
-- Config saved to `~/.config/niko/config.json`
-- Works across sessions
-
-### 🤖 AI API Key Management
-Configure API keys for multiple AI platforms during onboarding:
-- OpenAI (ChatGPT)
-- Anthropic (Claude)
-- Moonshot AI
-- Google (Gemini)
-- Groq
-
-All keys are stored securely as environment variables in your shell config.
-
-### 📝 Customizable Git Commits
-Choose your commit style:
-- **Conventional Commits**: feat, fix, docs, style, refactor, perf, test, chore
-- **Angular Style**: feat, fix, docs, style, refactor, perf, test, chore, build, ci
-- **Custom**: Define your own types
-
-Set max message length and scope requirements.
-
-### 🎨 Cool Banner
-ASCII art welcome banner on first run and help.
-
-## Configuration
-
-Config is stored at `~/.config/niko/config.json`:
+Configuration is stored in `~/.config/niko/config.json`:
 
 ```json
 {
@@ -193,33 +134,119 @@ Config is stored at `~/.config/niko/config.json`:
   "editor": "code",
   "onboardingComplete": true,
   "apiKeys": {
-    "openai": "OPENAI_API_KEY",
-    "anthropic": "ANTHROPIC_API_KEY"
+    "openai": "OPENAI_API_KEY"
   },
   "gitConfig": {
     "commitStyle": "conventional",
     "maxLength": 72,
     "requireScope": false
+  },
+  "workspaces": {
+    "frontend": "/home/user/projects/frontend"
   }
 }
 ```
 
-## Development
+## 🎨 Commit Styles
 
-```bash
-npm install
-npm run build
-npm run dev      # Watch mode
-npm test         # Run tests
+Niko supports three commit styles:
+
+- **Conventional**: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `chore`
+- **Angular**: Conventional + `build`, `ci`
+- **Custom**: Define your own types
+
+Example commits:
+```
+feat(auth): add login functionality
+fix(api): resolve timeout issue
+docs: update README
 ```
 
-## Publishing
+## 🔒 API Key Security
+
+API keys are stored as environment variables in your shell config:
 
 ```bash
+# Added to ~/.bashrc or ~/.zshrc
+export OPENAI_API_KEY="your-key-here"
+export ANTHROPIC_API_KEY="your-key-here"
+export MOONSHOT_API_KEY="your-key-here"
+export GEMINI_API_KEY="your-key-here"
+export GROQ_API_KEY="your-key-here"
+```
+
+Keys are never stored in Niko's config file — only the environment variable names are tracked.
+
+## 🧪 Testing
+
+```bash
+# Run all tests
+npm test
+
+# Run tests in watch mode
+npm run test:watch
+
+# Run tests with coverage
+npm run test:coverage
+```
+
+## 🏗️ Development
+
+```bash
+# Clone the repository
+git clone https://github.com/daciasec/niko-cli.git
+cd niko-cli
+
+# Install dependencies
+npm install
+
+# Build TypeScript
+npm run build
+
+# Run in development mode
+npm run dev
+
+# Link locally for testing
+npm link
+niko --help
+```
+
+## 📦 Publishing
+
+```bash
+# Build and publish to npm
 npm run build
 npm publish --access public
 ```
 
-## License
+## 📝 License
 
-MIT - DaciaSec
+MIT © [DaciaSec](https://github.com/daciasec)
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`niko commit` 😉)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 🐛 Bug Reports
+
+If you find a bug, please [open an issue](https://github.com/daciasec/niko-cli/issues) with:
+- A clear description of the problem
+- Steps to reproduce
+- Expected vs actual behavior
+- Your OS and Node version
+
+## 💡 Feature Requests
+
+Have an idea for a new command or feature? [Open an issue](https://github.com/daciasec/niko-cli/issues) and let's discuss!
+
+---
+
+<p align="center">
+  Made with ❤️ by <a href="https://github.com/daciasec">DaciaSec</a>
+</p>
